@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
+// import axios from "axios";
 import Loader from "./componetns/Loader/Loader";
 import ErrorMasage from "./componetns/ErrorMesage/ErrorMasage";
+import { reguestProducts } from "./servises/api";
 
 
 // [
@@ -33,7 +34,9 @@ useEffect(() => {
     async function fetchProducts () {
 try{
     setIsLoding(true)
-    const {data} = await axios.get('https://dummyjson.com/products')
+    // const {data} = await axios.get('https://dummyjson.com/products')
+     const data = await reguestProducts()
+
     setProducts(data.products)
 }catch(error) {
     setIsError(true)
