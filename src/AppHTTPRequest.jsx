@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import Loader from "./componetns/Loader/Loader";
 
 
 // [
@@ -24,29 +25,32 @@ import axios from "axios";
 const AppHTTPRequest = () => {
 
 const [products, setProducts] = useState(null)
+const [isLoading, setIsLoding] = useState(false)
 
 useEffect(() => {
     async function fetchProducts () {
         const {data} = await axios.get('https://dummyjson.com/products')
         // console.log(data);
         setProducts(data.products)
+        setIsLoding(false)
     }
     fetchProducts()
 }, [])
 
   return (
     <div>
-        <h1>Product market</h1>
+        <h1>Product shop</h1>
+        {isLoading && <Loader />}
         <ul>
 
             {Array.isArray(products) && products.map(product => {
                 return ( <li key={product.id}>
-                    <img width={200} src="" alt={product.title} />
-                    <h2>Title {product.title}</h2>
-                    <p>Description {product.description}</p>
-                    <h3>price {product.price}</h3>
-                    <p>Rating {product.rating}</p>
-                    <p>Brand {product.brand}</p>
+                    <img width={250} src={product.thumbnail} alt={product.title} />
+                    <h2>Title: {product.title}</h2>
+                    <p>Description: {product.description}</p>
+                    <h3>price: {product.price}</h3>
+                    <p>Rating: {product.rating}</p>
+                    <p>Brand: {product.brand}</p>
                 </li>)
             })}
            
