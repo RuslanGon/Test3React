@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 
 // [
@@ -20,6 +22,16 @@ import "./App.css";
 //       "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
 //     ]
 const AppHTTPRequest = () => {
+
+const [products, setProducts] = useState(null)
+
+useEffect(() => {
+    async function fetchProducts () {
+        const response = await axios.get('https://dummyjson.com/products')
+    }
+    fetchProducts()
+}, [])
+
   return (
     <div>
         <h1>Product market</h1>
