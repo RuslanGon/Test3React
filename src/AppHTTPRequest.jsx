@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Loader from "./componetns/Loader/Loader";
+import ErrorMasage from "./componetns/ErrorMesage/ErrorMasage";
 
 
 // [
@@ -26,13 +27,20 @@ const AppHTTPRequest = () => {
 
 const [products, setProducts] = useState(null)
 const [isLoading, setIsLoding] = useState(false)
+const [isError, setIsError] = useState(null)
 
 useEffect(() => {
     async function fetchProducts () {
-        const {data} = await axios.get('https://dummyjson.com/products')
-        // console.log(data);
-        setProducts(data.products)
-        setIsLoding(false)
+try{
+    setIsLoding(true)
+    const {data} = await axios.get('https://dummyjson.com/products')
+    setProducts(data.products)
+}catch(error) {
+    setIsError(true)
+} finally{
+    setIsLoding(false)
+}
+
     }
     fetchProducts()
 }, [])
@@ -41,6 +49,7 @@ useEffect(() => {
     <div>
         <h1>Product shop</h1>
         {isLoading && <Loader />}
+        {isError && <ErrorMasage /> }
         <ul>
 
             {Array.isArray(products) && products.map(product => {
