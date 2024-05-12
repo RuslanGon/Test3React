@@ -80,8 +80,8 @@ setQuery(serchTerm)
     <div>
       <h1>Product shop</h1>
       <SearchProducts onSearchProduct={onSearchProduct} />
-      {isLoading && <Loader />}
-      {isError && <ErrorMasage />}
+      {/* {isLoading && <Loader />}
+      {isError && <ErrorMasage />} */}
       <ProductList products={products} />
     </div>
   );
