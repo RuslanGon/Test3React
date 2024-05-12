@@ -1,8 +1,8 @@
 
 
-const ErrorMasage = () => {
+const ErrorMasage = ({mesage = 'Oop, serves error, sorry'}) => {
   return (
-    <p>Oop, serves error, sorry</p>
+    <p>{mesage}</p>
   )
 }
 
