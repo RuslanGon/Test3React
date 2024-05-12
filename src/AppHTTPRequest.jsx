@@ -27,7 +27,9 @@ const [products, setProducts] = useState(null)
 
 useEffect(() => {
     async function fetchProducts () {
-        const response = await axios.get('https://dummyjson.com/products')
+        const {data} = await axios.get('https://dummyjson.com/products')
+        // console.log(data);
+        setProducts(data.products)
     }
     fetchProducts()
 }, [])
@@ -36,14 +38,18 @@ useEffect(() => {
     <div>
         <h1>Product market</h1>
         <ul>
-            <li>
-                <img width={200} src="" alt="title" />
-                <h2>Title</h2>
-                <p>Description</p>
-                <h3>price</h3>
-                <p>Rating</p>
-                <p>Brand</p>
-            </li>
+
+            {Array.isArray(products) && products.map(product => {
+                return ( <li key={product.id}>
+                    <img width={200} src="" alt={product.title} />
+                    <h2>Title {product.title}</h2>
+                    <p>Description {product.description}</p>
+                    <h3>price {product.price}</h3>
+                    <p>Rating {product.rating}</p>
+                    <p>Brand {product.brand}</p>
+                </li>)
+            })}
+           
         </ul>
     </div>
   )
